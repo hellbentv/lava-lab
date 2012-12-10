@@ -1,0 +1,3 @@
+# managed by salt
+# gives the instance manager user sudo without password for common commands
+instance-manager ALL=(ALL) NOPASSWD:/sbin/start lava-instance LAVA_INSTANCE=staging, /sbin/stop lava-instance LAVA_INSTANCE=staging, /sbin/restart lava-instance LAVA_INSTANCE=staging
