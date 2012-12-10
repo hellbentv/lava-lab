@@ -5,4 +5,5 @@ base:
 
   'dispatcher':
     - instance_manager
+    - nfs
     - adb
