@@ -7,3 +7,5 @@ nfs_client:
     - device: 192.168.1.21:/c/val_backup
     - fstype: nfs
     - mkmnt: True
+    - require:
+      - pkg: nfs-common
