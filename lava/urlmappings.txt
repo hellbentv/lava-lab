@@ -1,0 +1,6 @@
+^https:\/\/.*\/precise\/restricted, scp://linaro-lava@mombin.canonical.com/precise/restricted/
+^http:\/\/.*\/precise\/restricted, scp://linaro-lava@mombin.canonical.com/precise/restricted/
+^https:\/\/.*\/quantal\/restricted, scp://linaro-lava@mombin.canonical.com/quantal/restricted/
+^http:\/\/.*\/quantal\/restricted, scp://linaro-lava@mombin.canonical.com/quantal/restricted/
+^https:\/\/.*\/~linaro-android-restricted\/, scp://linaro-lava@mombin.canonical.com/android/~linaro-android-restricted/
+^http:\/\/.*\/~linaro-android-restricted\/, scp://linaro-lava@mombin.canonical.com/android/~linaro-android-restricted/
