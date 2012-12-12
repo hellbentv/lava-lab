@@ -7,3 +7,9 @@ base:
     - instance_manager
     - nfs
     - adb
+
+  'fastmodels*':
+    - instance_manager
+    - nfs
+    - adb
+    - lava
