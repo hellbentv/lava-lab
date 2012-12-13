@@ -10,4 +10,8 @@ salt://lava/devices/{{ grains['host'] }}:
 {{ inst }}/etc/lava-dispatcher/urlmappings.txt:
   file.managed:
     - source: salt://lava/urlmappings.txt
+
+{{ inst }}/etc/lava-dispatcher/device-types:
+  file.recurse:
+    - source: salt://lava/device-types
 {% endfor %}
