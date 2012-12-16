@@ -12,7 +12,7 @@ lp-users:
 
 /etc/lp-manage-local.conf:
   file.managed:
-      - source: salt://lp_users/lp-manage-local.conf-{{ grains['host'] }}
+      - source: salt://lp_users/lp-manage-local.conf-{{ grains['id'] }}
       - user: root
       - group: root
       - mode: 444
