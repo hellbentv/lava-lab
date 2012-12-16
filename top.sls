@@ -13,3 +13,9 @@ base:
     - nfs
     - adb
     - lava
+
+  'dogfood':
+    - instance_manager
+    - nfs
+    - adb
+    - lava
