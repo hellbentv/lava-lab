@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link href="site.css" rel="stylesheet" type="text/css" />
+
+    <title>Salt Managed System - {{ id }}</title>
+  </head>
+  <body>
+    <h1>Salt Managed System - {{ id }}</h1>
+
+    <h2>Current Users</h2>
+    <i>* - indicates sudoer</i>
+    <ul>
+    {% for u in users %}
+      <li>{{ u.name }}{% if 'sudo' in u.groups %}*{% endif %}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Configured Groups</h2>
+    <ul>
+    {% for group in configured_groups %}
+      <li>{{ group }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Configured Sudoers</h2>
+    <ul>
+    {% for sudoer in configured_sudoers %}
+      <li>{{ sudoer }}</li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>

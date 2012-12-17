@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link href="site.css" rel="stylesheet" type="text/css" />
+
+    <title>Salt Managed Systems</title>
+  </head>
+  <body>
+    <h1>Salt Managed Systems</h1>
+    <p>The validation lab uses <a href="http://saltstack.org">salt</a> to
+    manage x86 servers in the lab. This page lets you drill down on what we
+    are managing.
+
+    <ul>
+    {% for host in hosts %}
+      <li><a href="{{ host }}.html">{{ host }}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
