@@ -6,6 +6,7 @@ import jinja2
 import os
 import shutil
 import StringIO
+import time
 
 import salt.client as client
 
@@ -16,33 +17,6 @@ def _render(outname, tmpl, args):
         content = template.render(**args)
         with open(outname, 'w') as of:
             of.write(content)
-
-'''
-labconfig = {
-    'dogfood': {
-        'id': 'dogfood',
-        'configured_sudoers': ['andy', 'tony'],
-        'configured_groups': ['linaro-validation'],
-        'users': [
-            {
-                'name': 'doanac',
-                'groups': ['lp-users', 'sudo']
-            },
-        ],
-    },
-    'foobar': {
-        'id': 'foobar',
-        'configured_sudoers': ['andy', 'tony'],
-        'configured_groups': ['linaro-validation'],
-        'users': [
-            {
-                'name': 'doanac',
-                'groups': ['lp-users']
-            },
-        ],
-    }
-}
-'''
 
 labconfig = {}
 
@@ -66,7 +40,10 @@ def get_user_config(lp_manage_local_buff):
 def build_configured_users():
     ret = client.cmd('*', 'cmd.run', ['cat /etc/lp-manage-local.conf'])
     for k,v in ret.iteritems():
-        labconfig[k] = {'id': k}
+        labconfig[k] = {
+            'id': k,
+            'time': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())
+        }
         if not v.startswith('cat: '):  # ensure file exists
             cfg = get_user_config(v)
             labconfig[k]['configured_groups'] = cfg['lp-groups']
@@ -98,7 +75,11 @@ if __name__ == '__main__':
     build_actual_users()
 
     outfile = '{0}/index.html'.format(args.odir)
-    _render(outfile, '{0}/index.html'.format(basedir), {'hosts': labconfig.keys()})
+    tmplargs = {
+        'hosts': labconfig.keys(),
+        'time': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())
+    }
+    _render(outfile, '{0}/index.html'.format(basedir), tmplargs)
     for host in labconfig.keys():
         outfile = '{0}/{1}.html'.format(args.odir, host)
         _render(outfile, '{0}/host.html'.format(basedir), labconfig[host])
