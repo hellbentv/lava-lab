@@ -70,6 +70,16 @@ def os_info():
     for k,v in ret.iteritems():
         labconfig[k]['disk'] = v
 
+def lava_info():
+    ret = client.cmd('*', 'grains.item', ['lava_instances'])
+    for k,v in ret.iteritems():
+        labconfig[k]['lava'] = {}
+        for inst in v:
+            ret = client.cmd(
+                k, 'cmd.run', ['". %s/bin/activate; lava devices"' % inst])
+            labconfig[k]['lava'][inst] = {'devices': ret[k]}
+
+
 if __name__ == '__main__':
     client = client.LocalClient()
 
@@ -83,6 +93,7 @@ if __name__ == '__main__':
     build_configured_users()
     build_actual_users()
     os_info()
+    lava_info()
 
     outfile = '{0}/index.html'.format(args.odir)
     tmplargs = {

@@ -55,5 +55,16 @@
     </table>
     </div>
     </div>
+
+    {% if grains.lava_instances %}
+    <h2>LAVA Instances</h2>
+    <table class='coltitle'>
+      {% for inst in grains.lava_instances %}
+      <tr><td>Instance</td><td>{{ inst }}</td></tr>
+      <tr><td>Devices</td><td>{{ lava[inst].devices }}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+
   </body>
 </html>
