@@ -2,6 +2,10 @@ body {
 	font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 }
 
+div.indent {
+	padding-left: 15px;
+}
+
 table.coltitle {
 	padding-left: 15px;
 }

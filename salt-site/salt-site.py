@@ -66,6 +66,9 @@ def os_info():
     for k,v in ret.iteritems():
         labconfig[k]['grains'] = v
 
+    ret = client.cmd('*', 'disk.usage')
+    for k,v in ret.iteritems():
+        labconfig[k]['disk'] = v
 
 if __name__ == '__main__':
     client = client.LocalClient()

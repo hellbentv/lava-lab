@@ -38,6 +38,22 @@
     <tr><td>Release</td><td>{{grains.osrelease}} <i>({{grains.oscodename}})</i></td></tr>
     <tr><td>Memory</td><td>{{grains.mem_total}}MB</td></tr>
     <tr><td>CPU</td><td>{{grains.num_cpus}} {{grains.cpuarch}}'s <small><i>{{', '.join(grains.cpu_flags)}}</i></small></td></tr>
+    <tr><td>Disk</td>
     </table>
+
+    <div class='indent'>
+    <div class='indent'>
+    <table>
+    <tr><th>Mount Point</th><th>Device</th><th>Size(1k blocks)</th><th>Available</th></tr>
+    {% for mnt,info in disk.iteritems() %}
+      {% if info.filesystem.startswith('/dev') %}
+      <tr>
+        <td>{{mnt}}</td><td>{{info.filesystem}}</td><td>{{info['1K-blocks']}}</td><td>{{info.available}}</td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+    </table>
+    </div>
+    </div>
   </body>
 </html>
