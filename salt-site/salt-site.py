@@ -61,6 +61,12 @@ def build_actual_users():
         labconfig[k]['users'] = users
 
 
+def os_info():
+    ret = client.cmd('*', 'grains.items')
+    for k,v in ret.iteritems():
+        labconfig[k]['grains'] = v
+
+
 if __name__ == '__main__':
     client = client.LocalClient()
 
@@ -73,6 +79,7 @@ if __name__ == '__main__':
 
     build_configured_users()
     build_actual_users()
+    os_info()
 
     outfile = '{0}/index.html'.format(args.odir)
     tmplargs = {

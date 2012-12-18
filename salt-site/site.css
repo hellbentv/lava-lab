@@ -1,3 +1,13 @@
 body {
 	font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 }
+
+table.coltitle {
+	padding-left: 15px;
+}
+
+table.coltitle>tbody>tr>td:first-child {
+	font-weight: bold;
+	font-style: italic;
+	padding-right: 15px;
+}

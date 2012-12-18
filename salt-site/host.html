@@ -31,5 +31,13 @@
       <li>{{ sudoer }}</li>
     {% endfor %}
     </ul>
+
+    <h2>System Information</h2>
+    <table class='coltitle'>
+    <tr><td>OS</td><td>{{grains.os}}</td></tr>
+    <tr><td>Release</td><td>{{grains.osrelease}} <i>({{grains.oscodename}})</i></td></tr>
+    <tr><td>Memory</td><td>{{grains.mem_total}}MB</td></tr>
+    <tr><td>CPU</td><td>{{grains.num_cpus}} {{grains.cpuarch}}'s <small><i>{{', '.join(grains.cpu_flags)}}</i></small></td></tr>
+    </table>
   </body>
 </html>
