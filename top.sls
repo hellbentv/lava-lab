@@ -19,3 +19,9 @@ base:
     - nfs
     - adb
     - lava
+
+  'staging':
+    - instance_manager
+    - nfs
+    - adb
+    - lava
