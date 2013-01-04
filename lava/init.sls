@@ -2,7 +2,7 @@
 # this assumes a file layout on the server like:
 #   /srv/salt/lava/devices/<host>/<instance>/
 #           device1.conf, device2.conf, ...
-salt://lava/devices/{{ grains['host'] }}:
+salt://lava/devices/{{ grains['id'] }}:
   lava:
     - sync_devices
 
