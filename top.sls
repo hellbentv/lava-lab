@@ -8,25 +8,8 @@ base:
     - nfs
     - adb
 
-  'control':
-    - instance_manager
-    - nfs
-    - adb
-    - lava
-
-  'fastmodels*':
-    - instance_manager
-    - nfs
-    - adb
-    - lava
-
-  'dogfood':
-    - instance_manager
-    - nfs
-    - adb
-    - lava
-
-  'staging':
+  'control, staging, dogfood, fastmodels01, fastmodels02':
+    - match: list
     - instance_manager
     - nfs
     - adb
