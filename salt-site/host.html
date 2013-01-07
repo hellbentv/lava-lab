@@ -10,28 +10,6 @@
     <h1>Salt Managed System - {{ id }}</h1>
     <small><i>Last Updated: {{ time }}</i></small>
 
-    <h2>Current Users</h2>
-    <i>* - indicates sudoer</i>
-    <ul>
-    {% for u in users %}
-      <li>{{ u.name }}{% if 'sudo' in u.groups %}*{% endif %}</li>
-    {% endfor %}
-    </ul>
-
-    <h2>Configured Groups</h2>
-    <ul>
-    {% for group in configured_groups %}
-      <li>{{ group }}</li>
-    {% endfor %}
-    </ul>
-
-    <h2>Configured Sudoers</h2>
-    <ul>
-    {% for sudoer in configured_sudoers %}
-      <li>{{ sudoer }}</li>
-    {% endfor %}
-    </ul>
-
     <h2>System Information</h2>
     <table class='coltitle'>
     <tr><td>OS</td><td>{{grains.os}}</td></tr>
@@ -65,6 +43,28 @@
       {% endfor %}
     </table>
     {% endif %}
+
+    <h2>Configured Groups</h2>
+    <ul>
+    {% for group in configured_groups %}
+      <li>{{ group }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Configured Sudoers</h2>
+    <ul>
+    {% for sudoer in configured_sudoers %}
+      <li>{{ sudoer }}</li>
+    {% endfor %}
+    </ul>
+    
+    <h2>Current Users</h2>
+    <i>* - indicates sudoer</i>
+    <ul>
+    {% for u in users %}
+      <li>{{ u.name }}{% if 'sudo' in u.groups %}*{% endif %}</li>
+    {% endfor %}
+    </ul>
 
   </body>
 </html>
