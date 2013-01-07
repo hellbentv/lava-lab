@@ -6,12 +6,14 @@ import jinja2
 import os
 import shutil
 import StringIO
+import subprocess
 import time
 
 import salt.client as client
 
 
-def _render(outname, tmpl, args):
+def _render(outname, tmpl, revinfo, args):
+    args['revinfo'] = revinfo
     with open(tmpl, 'r') as f:
         template = jinja2.Template(f.read())
         content = template.render(**args)
@@ -19,6 +21,7 @@ def _render(outname, tmpl, args):
             of.write(content)
 
 labconfig = {}
+
 
 def get_user_config(lp_manage_local_buff):
     cp = ConfigParser.ConfigParser()
@@ -34,12 +37,12 @@ def get_user_config(lp_manage_local_buff):
         for g in cp.get('__main__', 'lp-groups').split(','):
             lp_groups.append(g.strip())
 
-    return { 'sudoers': sudoers, 'lp-groups': lp_groups }
+    return {'sudoers': sudoers, 'lp-groups': lp_groups}
 
 
 def build_configured_users():
     ret = client.cmd('*', 'cmd.run', ['cat /etc/lp-manage-local.conf'])
-    for k,v in ret.iteritems():
+    for k, v in ret.iteritems():
         labconfig[k] = {
             'id': k,
             'time': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())
@@ -52,9 +55,8 @@ def build_configured_users():
 
 def build_actual_users():
     ret = client.cmd('*', 'user.getent')
-    for k,v in ret.iteritems():
+    for k, v in ret.iteritems():
         users = []
-        sudo = []
         for u in v:
             if u['gid'] == 1001 or 'lp-users' in u['groups']:
                 users.append(u)
@@ -63,21 +65,29 @@ def build_actual_users():
 
 def os_info():
     ret = client.cmd('*', 'grains.items')
-    for k,v in ret.iteritems():
+    for k, v in ret.iteritems():
         labconfig[k]['grains'] = v
 
     ret = client.cmd('*', 'disk.usage')
-    for k,v in ret.iteritems():
+    for k, v in ret.iteritems():
         labconfig[k]['disk'] = v
+
 
 def lava_info():
     ret = client.cmd('*', 'grains.item', ['lava_instances'])
-    for k,v in ret.iteritems():
+    for k, v in ret.iteritems():
         labconfig[k]['lava'] = {}
         for inst in v:
             ret = client.cmd(
                 k, 'cmd.run', ['". %s/bin/activate; lava devices"' % inst])
+            if k not in ret:
+                ret[k] = []
             labconfig[k]['lava'][inst] = {'devices': ret[k]}
+
+
+def _revno(bzrdir):
+    rev = subprocess.check_output(['bzr', 'revno'], cwd=basedir).strip()
+    return 'lp:~linaro-validation/lava-lab/salt-states revno(%s)' % rev
 
 
 if __name__ == '__main__':
@@ -95,14 +105,16 @@ if __name__ == '__main__':
     os_info()
     lava_info()
 
+    revno = _revno(basedir)
+
     outfile = '{0}/index.html'.format(args.odir)
     tmplargs = {
         'hosts': labconfig.keys(),
         'time': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())
     }
-    _render(outfile, '{0}/index.html'.format(basedir), tmplargs)
+    _render(outfile, '{0}/index.html'.format(basedir), revno, tmplargs)
     for host in labconfig.keys():
         outfile = '{0}/{1}.html'.format(args.odir, host)
-        _render(outfile, '{0}/host.html'.format(basedir), labconfig[host])
+        _render(outfile, '{0}/host.html'.format(basedir), revno, labconfig[host])
 
     shutil.copyfile('{0}/site.css'.format(basedir), '{0}/site.css'.format(args.odir))

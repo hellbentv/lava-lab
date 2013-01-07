@@ -8,7 +8,8 @@
   </head>
   <body>
     <h1>Salt Managed System - {{ id }}</h1>
-    <small><i>Last Updated: {{ time }}</i></small>
+    <small><i>Last Updated: {{ time }}</i></small><br />
+    <small><i>Based On: {{ revinfo }}</i></small>
 
     <h2>System Information</h2>
     <table class='coltitle'>
@@ -57,7 +58,7 @@
       <li>{{ sudoer }}</li>
     {% endfor %}
     </ul>
-    
+
     <h2>Current Users</h2>
     <i>* - indicates sudoer</i>
     <ul>
