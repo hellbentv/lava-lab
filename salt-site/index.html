@@ -19,5 +19,42 @@
       <li><a href="{{ host }}.html">{{ host }}</a></li>
     {% endfor %}
     </ul>
+
+    <h2>Lab Process Info</h2>
+    Ideally changes people need in the lab can be done via salt. Once a change
+    has been merged into our salt-states repository, it can be deployed to a
+    given host(s) from our ssh gateway (validation.linaro.org) with:
+
+<pre style="padding-left:20px;"><code>
+# as root:
+cd /srv/salt
+bzr pull
+salt 'hostname' state.highstate
+</code></pre>
+
+    The remainder of this section outlines some common examples:
+
+    <h3>User Configuration for a System</h3>
+    <p> Users on each system in the lab are kept in sync with launchpad groups.
+    If you simply need a user to be added to a system, then put it in the proper
+    launchpad group, and the cronjob on that system will sync the user within
+    an hour of the change.
+    </p>
+    <p>
+    If you need to change the launchapd group(s) allowed, then submitting a
+    merge proposal to our <a href="http://bazaar.launchpad.net/~linaro-validation/lava-lab/salt-states/files/head:/lp_users/">salt-states repo</a> is ideal.
+    </p>
+    <p>
+    Changing who needs sudo access is managed in the same way using the same
+    file as the user management process.
+    </p>
+
+    <h3>LAVA Configuration Changes</h3>
+    <p>We keep things like device configs and url mapping files in our
+    <a href="http://bazaar.launchpad.net/~linaro-validation/lava-lab/salt-states/files/head:/lava/devices/">salt-states repository</a>. Submitting a merge proposal is the
+    best way to get the team to make a configuration change for you. The files
+    are organized in a directory layout that's "HOSTNAME/INSTANCE_NAME".
+    </p>
+
   </body>
 </html>
