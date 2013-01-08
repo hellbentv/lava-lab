@@ -60,10 +60,9 @@
     </ul>
 
     <h2>Current Users</h2>
-    <i>* - indicates sudoer</i>
     <ul>
     {% for u in users %}
-      <li>{{ u.name }}{% if 'sudo' in u.groups %}*{% endif %}</li>
+      <li><a href="http://launchpad.net/~{{ u.name }}">{{ u.name }}</a></li>
     {% endfor %}
     </ul>
 
