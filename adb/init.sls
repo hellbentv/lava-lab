@@ -25,7 +25,7 @@ openjdk-6-jdk:
 
 /usr/local/bin/adb:
   file.symlink:
-    - target: /usr/local/bin/android-sdk-linux/platform-tools/adb
+    - target: /usr/local/android-sdk-linux/platform-tools/adb
     - require:
       - url: /usr/local/android-sdk-linux/platform-tools
 
