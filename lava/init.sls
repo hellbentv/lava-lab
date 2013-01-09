@@ -16,6 +16,10 @@ salt://lava/devices/{{ grains['id'] }}:
     - source: salt://lava/device-types
 {% endfor %}
 
+/usr/local/lab-scripts:
+  file.recurse:
+    - source: salt://lava/lab-scripts
+
 /root/.ssh/id_rsa:
   file.managed:
     - source: http://192.168.1.21/LAVA_HTTP/linaro-lava-key/id_rsa

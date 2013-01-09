@@ -1,0 +1,76 @@
+#!/usr/bin/expect --
+#
+# Reset the serial port on a Cyclades
+#
+# Copyright 2012 Linaro Ltd.
+# Author Dave Pigott
+set P "reset-serial"
+
+#
+# OPTIONS: options parser.
+#
+proc shift {_list} {
+        upvar $_list list
+        set res [lindex $list 0]
+        set list [lreplace $list 0 0]
+        return $res
+}
+
+proc arg {_list arg} {
+        upvar $_list list
+        if {[llength $list] < 1} {
+               puts stderr "$arg: required argument missing"
+               exit 1
+        }
+        return [shift list]
+}
+
+set timeout 30
+set user {admin}
+set pass {avocent}
+set cyclades [lindex $argv 0]
+set port [lindex $argv 1]
+shift argv
+shift argv
+
+while {[llength $argv] > 0} {
+puts "length [llength $argv]"
+   switch -- [shift argv] {
+      -p  { set pass [arg argv p]}
+      -u  { set user [arg argv u]}
+   }
+}
+
+if {[llength $argv] > 0} {
+   puts stderr "Usage: $P <cyclades> <port> [-u <user>] [-p <pass>]"
+   exit 1
+}
+
+if {[string compare $cyclades ""] == 0 ||
+   [string compare $port ""] == 0} \
+   {
+      puts stderr "cyclades and port required"
+      exit 1
+   }
+
+spawn telnet $cyclades
+expect "login: "
+send $user
+send "\r"
+expect "Password: "
+send $pass
+send "\r"
+expect "admin]"
+send "CLI\r"
+expect "cli>"
+send "config physicalports $port enable no\r"
+expect "cli>"
+send "config runconfig\r"
+expect "cli>"
+send "config physicalports $port enable yes\r"
+expect "cli>"
+send "config runconfig\r"
+expect "cli>"
+send "quit\r"
+expect "admin]"
+send "exit\r"
