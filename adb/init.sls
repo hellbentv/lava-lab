@@ -10,6 +10,8 @@ openjdk-6-jdk:
   url.sync_extract:
     - url: http://dl.google.com/android/android-sdk_r21.0.1-linux.tgz
     - md5sum: eaa5a8d76d692d1d027f2bbcee019644
+    - require:
+      - pkg: ia32-libs
 
 # platform tools requires an interactive UI, so we just keep a tarball
 # locally and explode it
@@ -19,7 +21,6 @@ openjdk-6-jdk:
     - md5sum: 61a84eabd21643d6dd8c387f7ad1180c
     - require:
       - url: /usr/local/android-sdk-linux
-      - pkg: ia32-libs
       - pkg: openjdk-6-jdk
 
 /usr/local/bin/adb:
