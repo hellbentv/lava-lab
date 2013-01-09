@@ -8,7 +8,7 @@ base:
     - nfs
     - adb
 
-  'control, staging, dogfood, fastmodels01, fastmodels02':
+  'control,staging,dogfood,fastmodels01,fastmodels02':
     - match: list
     - instance_manager
     - nfs
