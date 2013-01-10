@@ -14,6 +14,13 @@ instance-manager:
       - group: root
       - mode: 440
 
+  file.managed:
+      - source: salt://instance_manager/become-instance-manager
+      - name: /usr/local/bin/become-instance-manager
+      - user: root
+      - group: root
+      - mode: 755
+
 lp:lava-deployment-tool:
   bzr.latest:
     - target: /home/instance-manager/lava-deployment-tool
