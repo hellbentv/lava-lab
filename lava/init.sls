@@ -19,6 +19,7 @@ salt://lava/devices/{{ grains['id'] }}:
 /usr/local/lab-scripts:
   file.recurse:
     - source: salt://lava/lab-scripts
+    - file_mode: 755
 
 /root/.ssh/id_rsa:
   file.managed:
