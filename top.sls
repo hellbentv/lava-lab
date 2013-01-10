@@ -9,3 +9,7 @@ base:
     - nfs
     - adb
     - lava
+
+  'fastmodels*':
+    - match: pcre
+    - lava.fastmodels

@@ -7,8 +7,10 @@ Allows you to keep a tarball from a URL exploded on a target
     /tmp/blah:
       url.sync_extract
         - url: http://foo.com/blah.tgz:
-        - md5sum: 1234ABD
-
+        - md5sum: 1234ABD #optional
+        - user: root      #optional
+        - group: root     #optional
+        - mode: 755       #optional
 '''
 import logging
 import os
@@ -60,7 +62,7 @@ def _replace(path, tmpdir, tball, md5sum):
     subprocess.check_call(['mv', tmpdir, path])
 
 
-def sync_extract(name, url, md5sum):
+def sync_extract(name, url, md5sum, user=None, group=None, mode=None):
     """
     Will download the tarball and extract it locally if the md5sum has or
     does not yet exist
@@ -82,6 +84,7 @@ def sync_extract(name, url, md5sum):
             tball = _download(url, tmpdir)
             if not __opts__['test']:
                 _replace(name, tmpdir, tball, md5sum)
+                ret, perms = __salt__['file.check_perms'](name, ret, user, group, mode)
             ret['comment'] = '{0} is in sync with {1}'.format(name, url)
             ret['changes']['diff'] = '- {0}\n+ {1}'.format(orig_md5sum, md5sum)
         else:
