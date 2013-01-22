@@ -69,6 +69,7 @@ def sync_extract(name, url, md5sum, user=None, group=None, mode=None):
     """
     ret = {'name': name, 'result': True, 'comment': '', 'changes': {}}
     ret['changes']['diff'] = ''
+    ret['comment'] = '{0} already in sync with {1}'.format(name, url)
 
     tmpdir = tempfile.mkdtemp()
     try:
@@ -84,11 +85,11 @@ def sync_extract(name, url, md5sum, user=None, group=None, mode=None):
             tball = _download(url, tmpdir)
             if not __opts__['test']:
                 _replace(name, tmpdir, tball, md5sum)
-                ret, perms = __salt__['file.check_perms'](name, ret, user, group, mode)
             ret['comment'] = '{0} is in sync with {1}'.format(name, url)
             ret['changes']['diff'] = '- {0}\n+ {1}'.format(orig_md5sum, md5sum)
-        else:
-            ret['comment'] = '{0} already in sync with {1}'.format(name, url)
+
+        # file.check_perms appends to our "ret" value, so changes are preserved correctly
+        __salt__['file.check_perms'](name, ret, user, group, mode)
     except Exception:
         ret['result'] = False
         ret['comment'] = 'Failed to download and extract'
