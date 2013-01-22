@@ -10,6 +10,7 @@ openjdk-6-jdk:
   url.sync_extract:
     - url: http://dl.google.com/android/android-sdk_r21.0.1-linux.tgz
     - md5sum: eaa5a8d76d692d1d027f2bbcee019644
+    - mode: 0755
     - require:
       - pkg: ia32-libs
 
