@@ -30,6 +30,7 @@ openjdk-6-jdk:
   url.sync_extract:
     - url: http://192.168.1.21/LAVA_HTTP/android-binaries/platform-tools.tar.gz
     - md5sum: a50252db272df994292590e19c9da839
+    - mode: 0755
     - require:
       - url: /usr/local/android-sdk-linux
       - pkg: openjdk-6-jdk
