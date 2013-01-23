@@ -14,12 +14,22 @@ openjdk-6-jdk:
     - require:
       - pkg: ia32-libs
 
+  # the download from google doesn't have "root" owning the files
+  file.directory:
+    - user: root
+    - group: root
+    - recurse:
+      - user
+      - group
+    - require:
+      - url: /usr/local/android-sdk-linux
+
 # platform tools requires an interactive UI, so we just keep a tarball
 # locally and explode it
 /usr/local/android-sdk-linux/platform-tools:
   url.sync_extract:
     - url: http://192.168.1.21/LAVA_HTTP/android-binaries/platform-tools.tar.gz
-    - md5sum: 61a84eabd21643d6dd8c387f7ad1180c
+    - md5sum: a50252db272df994292590e19c9da839
     - require:
       - url: /usr/local/android-sdk-linux
       - pkg: openjdk-6-jdk
