@@ -20,6 +20,16 @@
     {% endfor %}
     </ul>
 
+    <h2>LAVA Instances</h2>
+    {% for inst,hosts in lavaconfig.iteritems() %}
+    <h3>{{ inst }}</h3>
+      <div style="padding-left:20px">
+      {% for host in hosts %}
+      <a href="{{ host }}.html">{{ host }}</a> 
+      {% endfor %}
+      </div>
+    {% endfor %}
+
     <h2>Lab Process Info</h2>
     Ideally changes people need in the lab can be done via salt. Once a change
     has been merged into our salt-states repository, it can be deployed to a

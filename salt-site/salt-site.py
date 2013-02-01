@@ -21,6 +21,7 @@ def _render(outname, tmpl, revinfo, args):
             of.write(content)
 
 labconfig = {}
+lavaconfig = {}
 
 
 def get_user_config(lp_manage_local_buff):
@@ -84,6 +85,11 @@ def lava_info():
                 ret[k] = ''
             devices = ', '.join(sorted(ret[k].split('\n')))
             labconfig[k]['lava'][inst] = {'devices': devices}
+            
+            inst = os.path.basename(inst)
+            if inst not in lavaconfig:
+                lavaconfig[inst] = []
+            lavaconfig[inst].append(k)
 
 
 def _revno(bzrdir):
@@ -111,6 +117,7 @@ if __name__ == '__main__':
     outfile = '{0}/index.html'.format(args.odir)
     tmplargs = {
         'hosts': labconfig.keys(),
+        'lavaconfig': lavaconfig,
         'time': time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())
     }
     _render(outfile, '{0}/index.html'.format(basedir), revno, tmplargs)
