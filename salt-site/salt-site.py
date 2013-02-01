@@ -79,10 +79,11 @@ def lava_info():
         labconfig[k]['lava'] = {}
         for inst in v:
             ret = client.cmd(
-                k, 'cmd.run', ['". %s/bin/activate; lava devices"' % inst])
+                k, 'cmd.run', ['"%s/bin/lava devices"' % inst], timeout=15)
             if k not in ret:
-                ret[k] = []
-            labconfig[k]['lava'][inst] = {'devices': ret[k]}
+                ret[k] = ''
+            devices = ', '.join(sorted(ret[k].split('\n')))
+            labconfig[k]['lava'][inst] = {'devices': devices}
 
 
 def _revno(bzrdir):
