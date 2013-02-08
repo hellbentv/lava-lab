@@ -35,11 +35,23 @@ openjdk-6-jdk:
       - url: /usr/local/android-sdk-linux
       - pkg: openjdk-6-jdk
 
+{% if grains['id'] in ['dispatcher01'] %}
+# systems with an sdmux require a patched version of adb. see:
+# https://android-review.googlesource.com/#/c/50011/
+/usr/local/bin/adb:
+  file.managed:
+    - source: salt://adb/adb-patched
+    - mode: 0755
+    - user: root
+    - group: root
+
+{% else %}
 /usr/local/bin/adb:
   file.symlink:
     - target: /usr/local/android-sdk-linux/platform-tools/adb
     - require:
       - url: /usr/local/android-sdk-linux/platform-tools
+{% endif %}
 
 /usr/local/bin/monkeyrunner:
   file.symlink:
