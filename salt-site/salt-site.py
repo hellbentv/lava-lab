@@ -75,7 +75,7 @@ def os_info():
 
 
 def lava_info():
-    ret = client.cmd('*', 'grains.item', ['lava_instances'])
+    ret = client.cmd('*', 'lava.list_instances', [])
     for k, v in ret.iteritems():
         labconfig[k]['lava'] = {}
         for inst in v:
@@ -85,7 +85,7 @@ def lava_info():
                 ret[k] = ''
             devices = ', '.join(sorted(ret[k].split('\n')))
             labconfig[k]['lava'][inst] = {'devices': devices}
-            
+
             inst = os.path.basename(inst)
             if inst not in lavaconfig:
                 lavaconfig[inst] = []
