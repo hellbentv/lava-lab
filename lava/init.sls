@@ -6,7 +6,7 @@ salt://lava/devices/{{ grains['id'] }}:
   lava:
     - sync_devices
 
-{% for inst in grains['lava_instances'] %}
+{% for inst in salt['lava.list_instances']() %}
 {{ inst }}/etc/lava-dispatcher/urlmappings.txt:
   file.managed:
     - source: salt://lava/urlmappings.txt
