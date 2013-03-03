@@ -1,1 +1,4 @@
-lp-manage-local.conf-dispatcher
+[__main__]
+
+sudoers: doanac, mwhudson, dpigott, stylesen, terceiro, tyler-baker
+lp-groups: linaro-validation, milo
