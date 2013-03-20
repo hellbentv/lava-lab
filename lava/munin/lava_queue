@@ -1,0 +1,31 @@
+#!/usr/bin/python
+
+# THIS FILE IS MANAGED BY SALT - DO NOT EDIT
+
+import httplib
+import json
+from sys import argv
+
+if len(argv) > 1:
+  if argv[1] == "autoconf":
+    print("yes")
+    exit(0)
+
+  if argv[1] == "config":
+    print("graph_title LAVA queue size")
+    print("graph_args --base 1000 -l 0")
+    print("graph_scale no")
+    print("graph_vlabel Number of active jobs")
+    print("graph_category LAVA")
+    print("lava_queue.label lava_queue")
+    print("lava_queue.draw AREA")
+    print("lava_queue.warning 50")
+    print("lava_queue.critical 100")
+    exit(0)
+
+conn = httplib.HTTPConnection("validation.linaro.org")
+conn.request("GET", "/lava-server/scheduler/active_jobs_json")
+resp = conn.getresponse()
+data = json.loads(resp.read())
+
+print("lava_queue.value %d" % data["iTotalRecords"])
