@@ -10,6 +10,9 @@ base:
     - adb
     - lava
 
+  'control':
+    - lava.munin
+
   'fastmodels*':
     - match: pcre
     - lava.fastmodels
