@@ -1,0 +1,15 @@
+Layout of this directory:
+
+  $hostname/
+    $instance/
+      device01.conf
+      device02.conf
+      ...
+  $otherhostname/
+    $otherinstance/
+      device03.conf
+      device04.conf
+      ...
+
+For example, the config for panda01.conf for production instance on control is
+on control/production/panda01.conf
