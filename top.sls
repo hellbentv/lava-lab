@@ -1,7 +1,7 @@
 base:
   '*':
     - sshd
-    - lp_users
+    - email
 
   'control,staging,dogfood,fastmodels01,fastmodels02,dispatcher01,hackbox':
     - match: list
