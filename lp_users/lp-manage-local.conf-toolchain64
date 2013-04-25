@@ -1,5 +1,5 @@
 # DO NOT EDIT: MANAGED BY SALT!!!
 [__main__]
 
-sudoers: dpigott,mwhudson
+sudoers: dpigott,mwhudson,tyler-baker,terceiro,stylesen
 lp-groups: linaro-toolchain-maintainers, linaro-validation, cbuild, stevanr, pfalcon
