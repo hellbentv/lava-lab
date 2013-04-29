@@ -1,5 +1,5 @@
 [__main__]
 
 sudoers: stylesen,mwhudson,dpigott,terceiro, tyler-baker
-lp-groups: linaro-validation, gmdduf
+lp-groups: linaro-validation
 
