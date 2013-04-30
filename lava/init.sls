@@ -30,7 +30,6 @@ salt://lava/devices/{{ grains['id'] }}:
 
 /root/.ssh/known_hosts:
   file.managed:
-    - source: http://192.168.1.21/LAVA_HTTP/linaro-lava-key/known_hosts
-    - source_hash: md5=f6c8035390f549bfb05f9fef2ff144ff
+    - source: salt://lava/known_hosts
     - owner: root
     - mode: 600
