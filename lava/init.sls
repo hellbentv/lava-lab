@@ -33,3 +33,7 @@ salt://lava/devices/{{ grains['id'] }}:
     - source: salt://lava/known_hosts
     - owner: root
     - mode: 600
+
+ipmitool:
+  pkg:
+    - installed
