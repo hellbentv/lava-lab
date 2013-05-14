@@ -1,4 +1,4 @@
 [__main__]
 
-sudoers: mwhudson, dpigott, stylesen, terceiro, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, nick-schutt, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew
+sudoers: mwhudson, dpigott, stylesen, terceiro, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, nick-schutt, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew, matthew-hart
 lp-groups: linaro-validation, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew
