@@ -1,5 +1,5 @@
 # DO NOT EDIT: MANAGED BY SALT!!!
 [__main__]
 
-sudoers: dpigott,mwhudson,tyler-baker,terceiro,stylesen, matthew-hart, matthew-gretton-dann, rob-welcomehome
+sudoers: dpigott,mwhudson,tyler-baker,terceiro,stylesen, matthew-hart, matthew-gretton-dann, rob-welcomehome, pfalcon
 lp-groups: linaro-toolchain-maintainers, linaro-validation, cbuild, stevanr, pfalcon
