@@ -1,2 +1,0 @@
-#!/bin/bash
-exec screen $1 $2
