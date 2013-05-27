@@ -21,14 +21,22 @@
     </ul>
 
     <h2>LAVA Instances</h2>
-    {% for inst,hosts in lavaconfig.iteritems() %}
-    <h3>{{ inst }}</h3>
-      <div style="padding-left:20px">
-      {% for host in hosts %}
-      <a href="{{ host }}.html">{{ host }}</a> 
-      {% endfor %}
-      </div>
+    <table>
+      <tr>
+        <th>Instance</th>
+        <th>Hosts</th>
+      </tr>
+      {% for inst,hosts in lavaconfig.iteritems() %}
+      <tr>
+        <td>{{ inst }}</td>
+        <td>
+          {% for host in hosts %}
+          <a href="{{ host }}.html">{{ host }}</a> 
+          {% endfor %}
+        </td>
+      </tr>
     {% endfor %}
+    </table>
 
     <h2>Staging updates</h2>
     <p>
