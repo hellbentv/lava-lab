@@ -30,6 +30,15 @@
       </div>
     {% endfor %}
 
+    <h2>Staging updates</h2>
+    <p>
+    Staging is updated daily, and here are the latest log entries:
+      <ul>
+        <li><a href="staging-upgrade.txt">staging-upgrade.txt</a> (the last one)</li>
+        <li><a href="staging-upgrade.old.txt">staging-upgrade.old.txt</a> (the one before the last one)</li>
+      </ul>
+    </p>
+
     <h2>Lab Process Info</h2>
     Ideally changes people need in the lab can be done via salt. Once a change
     has been merged into our salt-states repository, it can be deployed to a
