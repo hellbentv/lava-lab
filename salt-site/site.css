@@ -6,6 +6,15 @@ div.indent {
 	padding-left: 15px;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #cccccc;
+    padding: 3px;
+}
+
 table.coltitle {
 	padding-left: 15px;
 }
