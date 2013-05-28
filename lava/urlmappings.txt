@@ -1,6 +1,6 @@
-^https:\/\/.*\/quantal\/restricted, scp://linaro-lava@snapshots.linaro.org/quantal/restricted/
-^http:\/\/.*\/quantal\/restricted, scp://linaro-lava@snapshots.linaro.org/quantal/restricted/
-^https:\/\/.*\/raring\/restricted, scp://linaro-lava@snapshots.linaro.org/raring/restricted/
-^http:\/\/.*\/raring\/restricted, scp://linaro-lava@snapshots.linaro.org/raring/restricted/
-^https:\/\/.*\/~linaro-android-restricted\/, scp://linaro-lava@snapshots.linaro.org/android/~linaro-android-restricted/
-^http:\/\/.*\/~linaro-android-restricted\/, scp://linaro-lava@snapshots.linaro.org/android/~linaro-android-restricted/
+^https:\/\/.*\/quantal\/restricted, scp://linaro-lava@snapshots.linaro.org/snapshots.linaro.org/www/quantal/restricted/
+^http:\/\/.*\/quantal\/restricted, scp://linaro-lava@snapshots.linaro.org/snapshots.linaro.org/www/quantal/restricted/
+^https:\/\/.*\/raring\/restricted, scp://linaro-lava@snapshots.linaro.org/snapshots.linaro.org/www/raring/restricted/
+^http:\/\/.*\/raring\/restricted, scp://linaro-lava@snapshots.linaro.org/snapshots.linaro.org/www/raring/restricted/
+^https:\/\/.*\/~linaro-android-restricted\/, scp://linaro-lava@snapshots.linaro.org/snapshots.linaro.org/www/android/~linaro-android-restricted/
+^http:\/\/.*\/~linaro-android-restricted\/, scp://linaro-lava@snapshots.linaro.org/snapshots.linaro.org/www/android/~linaro-android-restricted/
