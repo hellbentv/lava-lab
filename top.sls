@@ -3,7 +3,7 @@ base:
     - sshd
     - lp_users
 
-  'control,staging,dogfood,fastmodels01,fastmodels02,dispatcher01,hackbox':
+  'control,staging,dogfood,fastmodels01,fastmodels02,fastmodels03,dispatcher01,hackbox':
     - match: list
     - instance_manager
     - nfs
