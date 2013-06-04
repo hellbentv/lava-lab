@@ -1,4 +1,4 @@
 [__main__]
 
-sudoers: mwhudson, dpigott, stylesen, terceiro, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, nick-schutt, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew, matthew-hart, mathieu.poirier, codehelp
-lp-groups: linaro-validation, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew, mathieu.poirier
+sudoers: mwhudson, dpigott, stylesen, terceiro, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, nick-schutt, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew, matthew-hart, mathieu.poirier, codehelp, broonie
+lp-groups: linaro-validation, vishalbhoj, naresh-kamboju, ryanharkin, tyler-baker, mturquette, khilman, daniel-lezcano, b-cousson, amitk, rengolin, mwasilew, mathieu.poirier, broonie
