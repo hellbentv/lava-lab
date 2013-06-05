@@ -10,6 +10,9 @@ base:
     - adb
     - lava
 
+  'dogfood'
+    - nagios
+
   'control':
     - lava.munin
 
