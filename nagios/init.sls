@@ -7,10 +7,10 @@ nagios:
     - home: /home/nagios
 
 /home/nagios/.ssh/:
-  file.directory
+  file.directory:
     - user: nagios
     - group: nagios
-    - mode: 600
+    - mode: 700
 
 /home/nagios/.ssh/authorized_keys:
   file.managed:
