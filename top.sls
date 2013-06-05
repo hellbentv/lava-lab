@@ -2,6 +2,7 @@ base:
   '*':
     - sshd
     - lp_users
+    - nagios
 
   'control,staging,dogfood,fastmodels01,fastmodels02,fastmodels03,fastmodels04,fastmodels05,fastmodels06,fastmodels07,dispatcher01,hackbox':
     - match: list
@@ -9,9 +10,6 @@ base:
     - nfs
     - adb
     - lava
-
-  'dogfood':
-    - nagios
 
   'control':
     - lava.munin
