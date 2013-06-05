@@ -10,7 +10,7 @@ base:
     - adb
     - lava
 
-  'dogfood'
+  'dogfood':
     - nagios
 
   'control':
