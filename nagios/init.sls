@@ -5,6 +5,7 @@ nagios:
     - fullname: Nagios Checks User
     - shell: /bin/bash
     - home: /home/nagios
+    - password: "thisisnotapasswordhash"
 
 /home/nagios/.ssh/:
   file.directory:
