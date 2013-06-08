@@ -45,7 +45,7 @@ openjdk-6-jdk:
     - user: root
     - group: root
 
-{% elif grains['id'] in ['fastmodel01', 'fastmodel02'] %}
+{% elif grains['id'] in ['fastmodels01', 'fastmodels02', 'fastmodels03'] %}
 # need a wrapper for avoiding running the connect and disconnect command
 # simultaneously
 # https://bugs.launchpad.net/linaro-android/+bug/1179479
