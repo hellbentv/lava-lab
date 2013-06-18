@@ -6,3 +6,13 @@
     - user: root
     - group: root
     - mode: 755
+
+#install tapctl
+
+#install brctl
+bridge-utils:
+  pkg:
+      - installed
+
+#run the setup.sh script
+
