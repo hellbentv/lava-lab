@@ -26,3 +26,11 @@ bridge-utils:
     - mode: 0755
     - user: root
     - group: root
+
+#start the FMNetwork script:
+start FMNetwork:
+  cmd.run:
+    - user: root
+    - name: "update-rc.d FMNetwork defaults"
+    - require:
+      - url: /etc/init.d/FMNetwork
