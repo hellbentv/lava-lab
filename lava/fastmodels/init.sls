@@ -31,6 +31,6 @@ bridge-utils:
 start FMNetwork:
   cmd.run:
     - user: root
-    - name: "update-rc.d FMNetwork defaults"
+    - name: "update-rc.d FMNetwork defaults && /etc/init.d/FMNetwork start"
     - require:
       - url: /etc/init.d/FMNetwork
