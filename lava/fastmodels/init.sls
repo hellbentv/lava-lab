@@ -7,12 +7,22 @@
     - group: root
     - mode: 755
 
-#install tapctl
+#install tapctrl
+/usr/sbin/tapctrl:
+  file.symlink:
+  - target: /opt/arm/RTSMv8_VE/scripts/tapctrl
+  - require:
+    - url: /opt/arm/RTSMv8_VE/scripts/tapctrl
 
 #install brctl
 bridge-utils:
   pkg:
-      - installed
+    - installed
 
-#run the setup.sh script
-
+#copy lava/fastmodels/FMNetwork script
+/etc/init.d/FMNetwork:
+  file.managed:
+    - source: salt://lava/fastmodels/FMNetwork
+    - mode: 0755
+    - user: root
+    - group: root
