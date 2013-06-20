@@ -33,8 +33,20 @@ INTERFACES="01 02"
 NIC=eth0
 PREFIX=armv8_
 BRIDGE=armbr0
-start()
-{
+
+function checkCommands(){
+    if ! type tapctrl > /dev/null 2>&1; then
+        echo "ERROR: Please install the tapctrl command"
+        exit 1
+    fi
+    if ! type brctl > /dev/null 2>&1; then
+        echo  "ERROR: Please install the bridge-utils package for brctl command"
+        exit 1
+    fi
+}
+
+start(){
+    checkCommands
     PID=`ps aux | grep dhclient | grep armbr0 | grep -v grep | awk '{print $2}'`
     DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
     HOST_IP=`ifconfig $NIC | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
@@ -74,11 +86,12 @@ start()
     ip addr show 2>&1 > /var/log/fm_bridge_create.log
     sleep 3
 }
-stop()
-{
-   PID=`ps aux | grep dhclient | grep armbr0 | grep -v grep | awk '{print $2}'`
-   HOST_IP=`ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
-   DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
+
+stop(){
+    checkCommands
+    PID=`ps aux | grep dhclient | grep armbr0 | grep -v grep | awk '{print $2}'`
+    HOST_IP=`ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
+    DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
 
     if [ x$PID == x ]; then
         echo "TAP Bridge $BRIDGE does not exist and no FMNetwork to stop."
@@ -87,7 +100,7 @@ stop()
 
     # take down the bridge
     kill -9 $PID
-    ifconfig $PREFIX$USERS down >/dev/null 2>&1
+    ifconfig $NIC down >/dev/null 2>&1
     ifconfig $BRIDGE down >/dev/null 2>&1
     ip addr flush $BRIDGE
 
