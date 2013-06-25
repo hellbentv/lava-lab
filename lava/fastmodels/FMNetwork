@@ -47,59 +47,39 @@ function checkCommands(){
 
 start(){
     checkCommands
-    PID=`ps aux | grep dhclient | grep armbr0 | grep -v grep | awk '{print $2}'`
-    DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
     HOST_IP=`ifconfig $NIC | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
-
-    if [ x$PID != x ]; then
-        echo "TAP Bridge $BRIDGE already exist and FMNetwork is running."
-        exit 1
-    fi
+    HOST_MAC=`ifconfig $NIC | grep $NIC | awk '{print $5}'`
+    DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
 
     # take down ethx
     ip addr flush $NIC
-    ifconfig $NIC 0.0.0.0 promisc down
+    ifconfig $NIC 0.0.0.0 promisc
     sleep 3
     # create bridge
     brctl addbr $BRIDGE
-    BRIDGE_MAC=`ifconfig $BRIDGE | grep $BRIDGE | awk '{print $5}'`
     brctl addif $BRIDGE $NIC
     # create tap devices and add them into the bridge
-    for interface in $INTERFACES
-    do
+    for interface in $INTERFACES; do
        interface_name=$PREFIX$interface
        tapctrl -n ${interface_name} -a create -o $user -t tap
        ifconfig ${interface_name} 0.0.0.0 promisc up
        brctl addif $BRIDGE ${interface_name}
     done
     ifconfig $NIC up
-    ifconfig $BRIDGE hw ether $BRIDGE_MAC 0.0.0.0 promisc
+    ifconfig $BRIDGE ${HOST_IP} hw ether $HOST_MAC promisc
     ip link set $BRIDGE up
-    # wait process to finish
-    sleep 1s
-    dhclient $BRIDGE
     route add default gw $DEFAULT_GW $BRIDGE
-    ifconfig $NIC $HOST_IP
+    # wait process to finish
     sleep 2
-    route del default gw $DEFAULT_GW $NIC >/dev/null 2>&1
-    route del $DEFAULT_GW $NIC >/dev/null 2>&1
     ip addr show 2>&1 > /var/log/fm_bridge_create.log
     sleep 3
 }
 
 stop(){
     checkCommands
-    PID=`ps aux | grep dhclient | grep armbr0 | grep -v grep | awk '{print $2}'`
-    HOST_IP=`ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
-    DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
-
-    if [ x$PID == x ]; then
-        echo "TAP Bridge $BRIDGE does not exist and no FMNetwork to stop."
-        exit 1
-    fi
+    HOST_IP=`ifconfig $BRIDGE | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
 
     # take down the bridge
-    kill -9 $PID
     ifconfig $NIC down >/dev/null 2>&1
     ifconfig $BRIDGE down >/dev/null 2>&1
     ip addr flush $BRIDGE
@@ -107,8 +87,7 @@ stop(){
     # remove the interfaces from the bridge
     brctl delif $BRIDGE $NIC
 
-    for interface in $INTERFACES
-    do
+    for interface in $INTERFACES; do
        interface_name=$PREFIX$interface
        brctl delif $BRIDGE ${interface_name}
        tapctrl -n ${interface_name} -a delete -o $user -t tap
@@ -117,14 +96,10 @@ stop(){
     # delete the bridge
     brctl delbr $BRIDGE
 
-    # unset promiscous mode
-    ifconfig $NIC $HOST_IP -promisc up
-
-    # bring up the network
-    route add default gw $DEFAULT_GW $NIC
-    ifconfig $NIC down
+    sleep 2
+    #restart the netwoking to recover to the status of NIC
+    /etc/init.d/networking restart
     sleep 3
-    ifconfig $NIC up
     ip addr show 2>&1 > /var/log/fm_bridge_delete.log
     sleep 3
 }

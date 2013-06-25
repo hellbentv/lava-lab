@@ -32,5 +32,5 @@ start FMNetwork:
   cmd.run:
     - user: root
     - name: "update-rc.d FMNetwork defaults && /etc/init.d/FMNetwork start"
-    - require:
+    - require
       - url: /etc/init.d/FMNetwork

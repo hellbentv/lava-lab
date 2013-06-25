@@ -45,17 +45,6 @@ openjdk-6-jdk:
     - user: root
     - group: root
 
-{% elif grains['id'] in ['fastmodels01', 'fastmodels02', 'fastmodels03'] %}
-# need a wrapper for avoiding running the connect and disconnect command
-# simultaneously
-# https://bugs.launchpad.net/linaro-android/+bug/1179479
-/usr/local/bin/adb:
-  file.managed:
-    - source: salt://adb/adb-wrapper
-    - mode: 0755
-    - user: root
-    - group: root
-
 {% else %}
 /usr/local/bin/adb:
   file.symlink:
