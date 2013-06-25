@@ -89,6 +89,7 @@ stop(){
 
     for interface in $INTERFACES; do
        interface_name=$PREFIX$interface
+       ifconfig ${interface_name} down
        brctl delif $BRIDGE ${interface_name}
        tapctrl -n ${interface_name} -a delete -o $user -t tap
     done
