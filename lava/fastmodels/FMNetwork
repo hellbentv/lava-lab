@@ -1,0 +1,125 @@
+#! /bin/bash
+### BEGIN INIT INFO
+# Provides: ARM Ltd
+# Required-Start: $local_fs $network $syslog
+# Should-Start:
+# Required-Stop: $local_fs $network $syslog
+# Should-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: FM Network Setup
+# Description: FM Network Setup
+#              Create TAP deivces and network bridge for Fast Models
+#              See http://www.arm.com/products/tools/fast-models.php
+#              for more information.
+### END INIT INFO
+
+# This is an example of a Linux LSB conforming init script.
+# See http://refspecs.freestandards.org/ for more information on LSB.
+
+# $FastModels$
+
+# source function library
+if [ -e /etc/rc.d/init.d/functions ];then
+    source /etc/rc.d/init.d/functions
+elif [ -e /lib/lsb/init-functions ];then
+    source /lib/lsb/init-functions
+else
+    echo 'Unable to find lsb functions'
+fi
+PATH=.:/sbin:/usr/sbin:/bin:/usr/bin
+user="www-data"
+INTERFACES="01 02"
+NIC=eth0
+PREFIX=armv8_
+BRIDGE=armbr0
+
+function checkCommands(){
+    if ! type tapctrl > /dev/null 2>&1; then
+        echo "ERROR: Please install the tapctrl command"
+        exit 1
+    fi
+    if ! type brctl > /dev/null 2>&1; then
+        echo  "ERROR: Please install the bridge-utils package for brctl command"
+        exit 1
+    fi
+}
+
+start(){
+    checkCommands
+    HOST_IP=`ifconfig $NIC | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
+    HOST_MAC=`ifconfig $NIC | grep $NIC | awk '{print $5}'`
+    DEFAULT_GW=`route | grep ^default | awk '{print $2}'`
+
+    # take down ethx
+    ip addr flush $NIC
+    ifconfig $NIC 0.0.0.0 promisc
+    sleep 3
+    # create bridge
+    brctl addbr $BRIDGE
+    brctl addif $BRIDGE $NIC
+    # create tap devices and add them into the bridge
+    for interface in $INTERFACES; do
+       interface_name=$PREFIX$interface
+       tapctrl -n ${interface_name} -a create -o $user -t tap
+       ifconfig ${interface_name} 0.0.0.0 promisc up
+       brctl addif $BRIDGE ${interface_name}
+    done
+    ifconfig $NIC up
+    ifconfig $BRIDGE ${HOST_IP} hw ether $HOST_MAC promisc
+    ip link set $BRIDGE up
+    route add default gw $DEFAULT_GW $BRIDGE
+    # wait process to finish
+    sleep 2
+    ip addr show 2>&1 > /var/log/fm_bridge_create.log
+    sleep 3
+}
+
+stop(){
+    checkCommands
+    HOST_IP=`ifconfig $BRIDGE | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}'`
+
+    # take down the bridge
+    ifconfig $NIC down >/dev/null 2>&1
+    ifconfig $BRIDGE down >/dev/null 2>&1
+    ip addr flush $BRIDGE
+
+    # remove the interfaces from the bridge
+    brctl delif $BRIDGE $NIC
+
+    for interface in $INTERFACES; do
+       interface_name=$PREFIX$interface
+       ifconfig ${interface_name} down
+       brctl delif $BRIDGE ${interface_name}
+       tapctrl -n ${interface_name} -a delete -o $user -t tap
+    done
+    ip link set $BRIDGE down
+    # delete the bridge
+    brctl delbr $BRIDGE
+
+    sleep 2
+    #restart the netwoking to recover to the status of NIC
+    /etc/init.d/networking restart
+    sleep 3
+    ip addr show 2>&1 > /var/log/fm_bridge_delete.log
+    sleep 3
+}
+RETVAL=0
+case "$1" in
+    start)
+           start
+           ;;
+    stop)
+           stop
+           ;;
+    restart)
+           stop
+           start
+           ;;
+    *)
+           echo -e "Usage: $0 {start|stop|restart}"
+           RETVAL=1
+esac
+
+exit $RETVAL
+# Script End
