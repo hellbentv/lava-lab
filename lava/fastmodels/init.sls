@@ -12,7 +12,7 @@
   file.symlink:
   - target: /opt/arm/RTSMv8_VE/scripts/tapctrl
   - require:
-    - url: /opt/arm/RTSMv8_VE/scripts/tapctrl
+    - url: /opt/arm
 
 #install brctl
 bridge-utils:
@@ -28,9 +28,11 @@ bridge-utils:
     - group: root
 
 #start the FMNetwork script:
-start FMNetwork:
-  cmd.run:
-    - user: root
-    - name: "update-rc.d FMNetwork defaults && /etc/init.d/FMNetwork start"
-    - require:
-      - url: /etc/init.d/FMNetwork
+start_FMNetwork:
+  service:
+    - running
+    - enable: True
+    - name: FMNetwork
+  require:
+    - file: /etc/init.d/FMNetwork
+    - url: /opt/arm
