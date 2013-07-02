@@ -1,0 +1,66 @@
+#!/usr/bin/expect --
+#
+# Reboot a machine connected to an APC ap8959
+# updated by Matt Hart for a modern PDU
+#
+# Copyright 2007 Google Inc., Martin J. Bligh <mbligh@google.com>
+set P "reboot-apc"
+
+#
+# OPTIONS: options parser.
+#
+proc shift {_list} {
+        upvar $_list list
+        set res [lindex $list 0]
+        set list [lreplace $list 0 0]
+        return $res
+}
+
+proc arg {_list arg} {
+        upvar $_list list
+        if {[llength $list] < 1} {
+               puts stderr "$arg: required argument missing"
+               exit 1
+        }
+        return [shift list]
+}
+
+set timeout 10
+set user {apc}
+set pass {apc}
+set host [lindex $argv 0]
+set outlet [lindex $argv 1]
+shift argv
+shift argv
+
+while {[llength $argv] > 0} {
+puts "length [llength $argv]"
+   switch -- [shift argv] {
+      -p  { set pass [arg argv p]}
+      -u  { set user [arg argv u]}
+   }
+}
+
+if {[llength $argv] > 0} {
+   puts stderr "Usage: $P <host> <outlet> [-u <user>] [-p <pass>]"
+   exit 1
+}
+
+if {[string compare $host ""] == 0 ||
+   [string compare $outlet ""] == 0} \
+   {
+      puts stderr "host and outlet required"
+      exit 1
+   }
+
+spawn telnet $host
+expect "User Name :"
+send $user
+send "\r"
+expect "Password  :"
+send $pass
+send "\r"
+expect "apc>"
+send "olReboot $outlet\r"
+expect "E000: Success"
+send "exit\r"
