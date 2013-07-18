@@ -12,6 +12,7 @@ base:
     - lava
 
   'control':
+    - lava.webinterface
     - lava.munin
 
   'fastmodels*':
