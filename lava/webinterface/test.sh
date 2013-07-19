@@ -46,10 +46,10 @@ check_redirect /lava-server/foo /foo
 check_redirect /lava-server/scheduler/device/vexpress-tc2-01 /scheduler/device/vexpress-tc2-01
 check_redirect /lava-server/scheduler/job/63277 /scheduler/job/63277
 check_redirect /lava-server/static/lava-server/css/default.css /static/lava-server/css/default.css
-check_command "API: /RPC2/" python apitest.py "${base}/RPC2/"
-check_command "API: /RPC2" python apitest.py "${base}/RPC2"
-check_command "API: /lava-server/RPC2/" python apitest.py "${base}/lava-server/RPC2/"
-check_command "API: /lava-server/RPC2" python apitest.py "${base}/lava-server/RPC2"
+check_command "API at /RPC2/" python apitest.py "${base}/RPC2/"
+check_command "API at /RPC2" python apitest.py "${base}/RPC2"
+check_command "API at /lava-server/RPC2/" python apitest.py "${base}/lava-server/RPC2/"
+check_command "API at /lava-server/RPC2" python apitest.py "${base}/lava-server/RPC2"
 
 ################################################################
 
