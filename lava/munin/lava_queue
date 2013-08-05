@@ -24,7 +24,7 @@ if len(argv) > 1:
     exit(0)
 
 conn = httplib.HTTPConnection("validation.linaro.org")
-conn.request("GET", "/lava-server/scheduler/active_jobs_json")
+conn.request("GET", "/scheduler/active_jobs_json")
 resp = conn.getresponse()
 data = json.loads(resp.read())
 
