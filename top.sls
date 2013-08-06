@@ -15,6 +15,9 @@ base:
     - lava.webinterface
     - lava.munin
 
+  'staging':
+    - lava.webinterface
+
   'fastmodels*':
     - match: pcre
     - lava.fastmodels
