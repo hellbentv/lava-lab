@@ -11,7 +11,7 @@ lava:
   service:
     - running
     - watch:
-      - file: /srv/lava/instances/production/etc/lava-server/settings.conf
+      - file: /srv/lava/instances/{{ grains['id'] }}/etc/lava-server/settings.conf
 
 /etc/apache2/sites-available/validation.linaro.org.conf:
   file.managed:
@@ -24,21 +24,19 @@ lava:
   file.symlink:
     - target: /etc/apache2/sites-available/validation.linaro.org.conf
 
-{% for inst in salt['lava.list_instances']() %}
-{% if {{ inst }} == 'staging'%}
-/srv/lava/instances/{{ inst }}/etc/lava-server/settings.conf:
+{% if grains['id'] == 'staging'%}
+/srv/lava/instances/staging/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django-staging.conf
     - mode: 644
     - user: root
     - group: root
 {% endif %}
-{% if {{ inst }} != 'staging'%}
-/srv/lava/instances/{{ inst }}/etc/lava-server/settings.conf:
+{% if grains['id'] != 'staging'%}
+/srv/lava/instances/{{ grains['id'] }}/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django.conf
     - mode: 644
     - user: root
     - group: root
 {% endif %}
-{% endfor %}
