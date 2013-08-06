@@ -15,7 +15,7 @@ lava:
       - file: /srv/lava/instances/staging/etc/lava-server/settings.conf
 {% endif %}
 
-{% if grains['id'] == 'production'%}
+{% if grains['id'] == 'control'%}
 lava:
   service:
     - running
@@ -42,7 +42,7 @@ lava:
     - user: root
     - group: root
 {% endif %}
-{% if grains['id'] == 'production'%}
+{% if grains['id'] == 'control'%}
 /srv/lava/instances/production/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django.conf
