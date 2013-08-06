@@ -7,11 +7,21 @@ apache2:
       - file: /etc/apache2/sites-available/validation.linaro.org.conf
       - file: /etc/apache2/sites-enabled/002-validation.linaro.org.conf
 
+{% if grains['id'] == 'staging'%}
 lava:
   service:
     - running
     - watch:
-      - file: /srv/lava/instances/{{ grains['id'] }}/etc/lava-server/settings.conf
+      - file: /srv/lava/instances/staging/etc/lava-server/settings.conf
+{% endif %}
+
+{% if grains['id'] == 'production'%}
+lava:
+  service:
+    - running
+    - watch:
+      - file: /srv/lava/instances/production/etc/lava-server/settings.conf
+{% endif %}
 
 /etc/apache2/sites-available/validation.linaro.org.conf:
   file.managed:
@@ -32,8 +42,8 @@ lava:
     - user: root
     - group: root
 {% endif %}
-{% if grains['id'] != 'staging'%}
-/srv/lava/instances/{{ grains['id'] }}/etc/lava-server/settings.conf:
+{% if grains['id'] == 'production'%}
+/srv/lava/instances/production/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django.conf
     - mode: 644
