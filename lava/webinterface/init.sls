@@ -24,7 +24,8 @@ lava:
   file.symlink:
     - target: /etc/apache2/sites-available/validation.linaro.org.conf
 
-{% if salt['lava.list_instances']() == 'staging'%}
+{% for inst in salt['lava.list_instances']() %}
+{% if {{ inst }} == 'staging'%}
 /srv/lava/instances/production/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django-staging.conf
@@ -32,8 +33,7 @@ lava:
     - user: root
     - group: root
 {% endif %}
-
-{% if salt['lava.list_instances']() != 'staging'%}
+{% if {{ inst }} != 'staging'%}
 /srv/lava/instances/production/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django.conf
@@ -41,3 +41,4 @@ lava:
     - user: root
     - group: root
 {% endif %}
+{% endfor %}
