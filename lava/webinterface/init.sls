@@ -26,7 +26,7 @@ lava:
 
 {% for inst in salt['lava.list_instances']() %}
 {% if {{ inst }} == 'staging'%}
-/srv/lava/instances/production/etc/lava-server/settings.conf:
+/srv/lava/instances/{{ inst }}/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django-staging.conf
     - mode: 644
@@ -34,7 +34,7 @@ lava:
     - group: root
 {% endif %}
 {% if {{ inst }} != 'staging'%}
-/srv/lava/instances/production/etc/lava-server/settings.conf:
+/srv/lava/instances/{{ inst }}/etc/lava-server/settings.conf:
   file.managed:
     - source: salt://lava/webinterface/django.conf
     - mode: 644
