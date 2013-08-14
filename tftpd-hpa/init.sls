@@ -1,26 +1,14 @@
-{% if grains['id'] == 'staging'%}
 tftpd-hpa:
   pkg:
     - installed
   file.managed:
+    {% if grains['id'] == 'staging'%}
     - source: salt://tftpd-hpa/tftpd-hpa-staging
-    - name: /etc/default/tftpd-hpa
-    - owner: root
-    - mode: 600
-    - require:
-      - pkg: tftpd-hpa
-  service.running:
-    - enable: True
-    - watch:
-      - file: /etc/default/tftpd-hpa
-      - pkg: tftpd-hpa
-{% endif %}
-{% if grains['id'] != 'staging'%}
-tftpd-hpa:
-  pkg:
-    - installed
-  file.managed:
+    {% elif grains['id'] == 'multinode'%}
+    - source: salt://tftpd-hpa/tftpd-hpa-multinode
+    {% else %}
     - source: salt://tftpd-hpa/tftpd-hpa-production
+    {% endif %}
     - name: /etc/default/tftpd-hpa
     - owner: root
     - mode: 600
@@ -31,4 +19,3 @@ tftpd-hpa:
     - watch:
       - file: /etc/default/tftpd-hpa
       - pkg: tftpd-hpa
-{% endif %}
