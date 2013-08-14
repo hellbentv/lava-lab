@@ -9,6 +9,8 @@ base:
     - instance_manager
     - nfs
     - adb
+    - openbsd-inetd
+    - tftpd-hpa
     - lava
 
   'control':
