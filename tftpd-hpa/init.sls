@@ -6,6 +6,8 @@ tftpd-hpa:
     - source: salt://tftpd-hpa/tftpd-hpa-staging
     {% elif grains['id'] == 'multinode'%}
     - source: salt://tftpd-hpa/tftpd-hpa-multinode
+    {% elif grains['id'] == 'control'%}
+    - source: salt://tftpd-hpa/tftpd-hpa-control
     {% else %}
     - source: salt://tftpd-hpa/tftpd-hpa-production
     {% endif %}
