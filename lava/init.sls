@@ -14,6 +14,8 @@ salt://lava/devices/{{ grains['id'] }}:
 {{ inst }}/etc/lava-dispatcher/device-types:
   file.recurse:
     - source: salt://lava/device-types
+    - clean: True
+    - include_empty: True
 {% endfor %}
 
 /usr/local/lab-scripts:
