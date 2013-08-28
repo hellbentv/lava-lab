@@ -19,6 +19,7 @@ base:
 
   'staging':
     - lava.webinterface
+    - lava.fastmodels
 
   'fastmodels*':
     - match: pcre
