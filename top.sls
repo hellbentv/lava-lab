@@ -17,7 +17,7 @@ base:
     - lava.webinterface
     - lava.munin
 
-  'staging':
+  'staging*':
     - lava.webinterface
     - lava.fastmodels
     - staging-coordinator
