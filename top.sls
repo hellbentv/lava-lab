@@ -13,16 +13,14 @@ base:
     - tftpd-hpa
     - lava
 
-  'staging01,staging':
-    - staging-coordinator
-
   'control':
     - lava.webinterface
     - lava.munin
 
-  'staging':
+  'staging,staging01':
     - lava.webinterface
     - lava.fastmodels
+    - staging-coordinator
 
   'fastmodels*':
     - match: pcre
