@@ -13,7 +13,7 @@ base:
     - tftpd-hpa
     - lava
 
-  'staging01,staging'
+  'staging01,staging':
     - staging-coordinator
 
   'control':
