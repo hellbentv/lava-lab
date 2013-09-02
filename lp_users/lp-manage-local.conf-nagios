@@ -1,4 +1,4 @@
 [__main__]
 
-sudoers: dpigott, mwhudson, terceiro, stylesen, fboudra, tyler-baker, matthew-hart
+sudoers: dpigott, terceiro, stylesen, fboudra, tyler-baker, matthew-hart
 lp-groups: linaro-validation

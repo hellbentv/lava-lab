@@ -1,4 +1,4 @@
 [__main__]
 
-sudoers: mwhudson, dpigott, stylesen, terceiro, tyler-baker, matthew-hart, codehelp, fu-wei
+sudoers: dpigott, stylesen, terceiro, tyler-baker, matthew-hart, codehelp, fu-wei
 lp-groups: linaro-validation, milo, fu-wei
