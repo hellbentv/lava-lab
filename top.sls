@@ -12,6 +12,7 @@ base:
     - openbsd-inetd
     - tftpd-hpa
     - lava
+    - qemu
 
   'control':
     - lava.webinterface
