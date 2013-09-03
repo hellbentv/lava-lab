@@ -4,8 +4,7 @@ base:
     - lp_users
     - nagios
 
-### dispatchers
-'control,fastmodels01,fastmodels02,fastmodels03,fastmodels04,fastmodels05,fastmodels06,dispatcher01,dispatcher02,hackbox,multinode,playgroundmaster,playgroundworker01,staging,staging01':
+  'control,fastmodels01,fastmodels02,fastmodels03,fastmodels04,fastmodels05,fastmodels06,dispatcher01,dispatcher02,hackbox,multinode,playgroundmaster,playgroundworker01,staging,staging01':
     - match: list
     - instance_manager
     - nfs
@@ -14,7 +13,6 @@ base:
     - tftpd-hpa
     - lava
 
-### production
   'control':
     - lava.webinterface
     - lava.munin
@@ -26,7 +24,6 @@ base:
     - match: pcre
     - lava.fastmodels
 
-### staging
   'staging':
     - lava.webinterface
 
