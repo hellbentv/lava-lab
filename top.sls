@@ -18,6 +18,7 @@ base:
     - lava.munin
 
   'control,fastmodels01,fastmodels02,fastmodels03,fastmodels04,fastmodels05,fastmodels06,dispatcher01,dispatcher02':
+    - match: list
     - lava.production-coordinator
 
   'fastmodels*':
