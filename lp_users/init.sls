@@ -2,9 +2,9 @@ bzr:
   pkg:
     - installed
 
-lp:~doanac/+junk/linaro-its-tools:
-  bzr.latest:
-    - target: /usr/local/linaro-its-tools
+#lp:~doanac/+junk/linaro-its-tools:
+#  bzr.latest:
+#    - target: /usr/local/linaro-its-tools
 
 lp-users:
   group.present:

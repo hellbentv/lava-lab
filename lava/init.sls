@@ -25,8 +25,8 @@ salt://lava/devices/{{ grains['id'] }}:
 
 /root/.ssh/id_rsa:
   file.managed:
-    - source: http://192.168.1.21/LAVA_HTTP/linaro-lava-key/id_rsa
-    - source_hash: md5=900b277c676360fcfbd2cc10edc5aab7
+    - source: file:///home/id_rsa
+    - source_hash: md5=3bb59ee33ab2f229096eeafe17d0b7c3
     - owner: root
     - mode: 600
 
@@ -36,6 +36,6 @@ salt://lava/devices/{{ grains['id'] }}:
     - owner: root
     - mode: 600
 
-ipmitool:
-  pkg:
-    - installed
+#ipmitool:
+#  pkg:
+#    - installed

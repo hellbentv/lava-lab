@@ -4,7 +4,7 @@ base:
     - lp_users
     - nagios
 
-  'control,fastmodels01,fastmodels02,fastmodels03,fastmodels04,fastmodels05,fastmodels06,dispatcher01,dispatcher02,hackbox,multinode,playgroundmaster,playgroundworker01,staging,staging01':
+  'lavaserver, homecloud, homenas':
     - match: list
     - instance_manager
     - nfs
@@ -14,21 +14,17 @@ base:
     - lava
     - qemu
 
-  'control':
+  'homenas':
+    - bridge-utils
+    - ser2net
+    - lava
+    - setupbridge
+      
+  'lavaserver':
     - lava.webinterface
     - lava.munin
 
-  'control,fastmodels01,fastmodels02,fastmodels03,fastmodels04,fastmodels05,fastmodels06,dispatcher01,dispatcher02':
+  'lavaserver, homenas':
     - match: list
     - lava.production-coordinator
 
-  'fastmodels*':
-    - match: pcre
-    - lava.fastmodels
-
-  'staging':
-    - lava.webinterface
-
-  'staging*':
-    - lava.fastmodels
-    - lava.staging-coordinator

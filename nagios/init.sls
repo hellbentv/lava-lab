@@ -7,6 +7,10 @@ nagios:
     - home: /home/nagios
     - password: "thisisnotapasswordhash"
 
+nagios3:
+  pkg:
+    - installed
+
 /home/nagios/.ssh/:
   file.directory:
     - user: nagios

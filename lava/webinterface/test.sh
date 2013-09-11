@@ -1,5 +1,5 @@
 if test -z "$base"; then
-  base="http://validation.linaro.org"
+  base="http://lava.akb.net"
 fi
 
 passed=0
