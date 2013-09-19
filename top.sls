@@ -4,7 +4,7 @@ base:
     - lp_users
     - nagios
 
-  'lavaserver, homecloud, homenas':
+  'lavaserver, homecloud, homenas, lava-bbblack-dispatcher01':
     - match: list
     - instance_manager
     - nfs
@@ -19,6 +19,10 @@ base:
     - ser2net
     - lava
     - setupbridge
+
+  'lava-bbblack-dispatcher01':
+    - ser2net
+    - lava
       
   'lavaserver':
     - lava.webinterface
