@@ -4,7 +4,7 @@ base:
     - lp_users
     - nagios
 
-  'lavaserver, homecloud, homenas, lava-bbblack-dispatcher01':
+  'lavaserver, homecloud, homenas, lava-bbblack-dispatcher01, hasdell':
     - match: list
     - instance_manager
     - nfs
@@ -18,6 +18,12 @@ base:
     - bridge-utils
     - ser2net
     - lava
+    - setupbridge
+
+  'hasdell':
+    - lava
+    - ser2net
+    - bridge-utils
     - setupbridge
 
   'lava-bbblack-dispatcher01':
