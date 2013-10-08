@@ -1,7 +1,6 @@
 base:
   '*':
     - sshd
-    - lp_users
 
   'homenas':
     - bridge-utils
@@ -9,6 +8,7 @@ base:
     - lava
     - setupbridge
     - adb
+    - lp-users
 
   'hasdell':
     - lava
@@ -16,6 +16,7 @@ base:
     - bridge-utils
     - setupbridge
     - adb
+    - lp-users
 
   'lavaserver':
     - lava.webinterface
