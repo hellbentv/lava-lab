@@ -9,6 +9,12 @@ base:
     - setupbridge
     - adb
     - lp-users
+    - qemu
+
+  'x1carbon':
+    - bridge-utils
+    - ser2net
+    - lava
 
   'hasdell':
     - lava
@@ -17,6 +23,7 @@ base:
     - setupbridge
     - adb
     - lp-users
+    - qemu
 
   'lavaserver':
     - lava.webinterface
