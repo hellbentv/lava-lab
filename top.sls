@@ -10,10 +10,14 @@ base:
     - adb
     - lp-users
     - qemu
+    - tftpd-hpa
+    - nfs
 
   'x1carbon':
     - bridge-utils
     - ser2net
+    - tftpd-hpa
+    - nfs
     - lava
 
   'hasdell':
@@ -24,6 +28,8 @@ base:
     - adb
     - lp-users
     - qemu
+    - tftpd-hpa
+    - nfs
 
   'lavaserver':
     - lava.webinterface
