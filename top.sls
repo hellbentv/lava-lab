@@ -8,7 +8,6 @@ base:
     - lava
     - setupbridge
     - adb
-    - lp-users
     - qemu
     - tftpd-hpa
     - nfs
@@ -26,7 +25,6 @@ base:
     - bridge-utils
     - setupbridge
     - adb
-    - lp-users
     - qemu
     - tftpd-hpa
     - nfs
