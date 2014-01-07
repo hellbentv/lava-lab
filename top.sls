@@ -28,6 +28,7 @@ base:
     - qemu
     - tftpd-hpa
     - nfs
+    - udev
 
   'lavaserver':
     - lava.webinterface
