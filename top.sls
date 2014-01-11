@@ -2,22 +2,15 @@ base:
   '*':
     - sshd
 
-  'homenas':
-    - bridge-utils
-    - ser2net
+  'nuc1':
     - lava
+    - ser2net
+    - bridge-utils
     - setupbridge
     - adb
     - qemu
     - tftpd-hpa
     - nfs
-
-  'x1carbon':
-    - bridge-utils
-    - ser2net
-    - tftpd-hpa
-    - nfs
-    - lava
 
   'hasdell':
     - lava
