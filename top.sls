@@ -11,6 +11,7 @@ base:
     - qemu
     - tftpd-hpa
     - nfs
+    - udev
 
   'hasdell':
     - lava
