@@ -13,7 +13,7 @@ base:
     - nfs
     - udev
 
-  'hasdell':
+  'akbdispatcher01':
     - lava
     - ser2net
     - bridge-utils
